@@ -1,5 +1,6 @@
 const squares = document.getElementsByClassName("square");
 const gameCompleteMessage = document.getElementById("gameStatus");
+const restart = document.getElementById("restart");
 
 console.log("squares:", squares);
 
@@ -19,11 +20,34 @@ let squareMatrix = [
 ];
 let gameComplete = false;
 
-/* function hasEntireRow(currentValue, array) {
-  array.includes(currentValue);
-} */
-
 // Add game counter
+// Restart game button
+restart.addEventListener("click", () => {
+  console.log("restart clicked");
+  Array.from(squares).forEach((square, index) => {
+    square.style = "background-color: cadetblue";
+    console.log("test restart");
+  });
+  gameCompleteMessage.innerHTML = "";
+  squareMatrix = [
+    { index: 0, taken: false, user: null },
+    { index: 1, taken: false, user: null },
+    { index: 2, taken: false, user: null },
+    { index: 3, taken: false, user: null },
+    { index: 4, taken: false, user: null },
+    { index: 5, taken: false, user: null },
+    { index: 6, taken: false, user: null },
+    { index: 7, taken: false, user: null },
+    { index: 8, taken: false, user: null },
+  ];
+});
+
+// X and O icons
+
+// Add random computer mode
+// isComputerMode = false
+// Computer does first move - random
+// huge if -> if(computerMode) => playerTwo = Math.random()*8.floor
 
 Array.from(squares).forEach((square, index) => {
   square.addEventListener("click", () => {
@@ -49,14 +73,6 @@ Array.from(squares).forEach((square, index) => {
     playerTwoTurn = !playerTwoTurn;
 
     console.log("matrix: ", squareMatrix);
-
-    /*     if (
-      squareMatrix[0].user == "playerOne" &&
-      squareMatrix[1].user == "playerOne" &&
-      squareMatrix[2].user == "playerOne"
-    ) {
-      console.log("pink win");
-    } */
 
     let pinkArray = [];
     let azureArray = [];
@@ -150,6 +166,7 @@ Array.from(squares).forEach((square, index) => {
       // square.style = "pointer-events: none";
       // Array.from(squares).forEach((el) => (el.style = "pointer-events: none"));
       console.log("We have a winner - change style");
+      gameComplete = false;
     }
   });
 });
