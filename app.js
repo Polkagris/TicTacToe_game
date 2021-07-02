@@ -1,27 +1,32 @@
 const squares = document.getElementsByClassName("square");
 const gameCompleteMessage = document.getElementById("gameStatus");
 const restart = document.getElementById("restart");
+const playerOneCounterText = document.getElementById("playerOneCounter");
+const playerTwoCounterText = document.getElementById("playerTwoCounter");
 
 console.log("squares:", squares);
 
 let playerOneTurn = true;
 let playerTwoTurn = false;
-let isTaken = false;
-let squareMatrix = [
-  { index: 0, taken: false, user: null },
-  { index: 1, taken: false, user: null },
-  { index: 2, taken: false, user: null },
-  { index: 3, taken: false, user: null },
-  { index: 4, taken: false, user: null },
-  { index: 5, taken: false, user: null },
-  { index: 6, taken: false, user: null },
-  { index: 7, taken: false, user: null },
-  { index: 8, taken: false, user: null },
-];
-let gameComplete = false;
 
-// Add game counter
-// Restart game button
+let squareMatrix = [
+  { index: 0, user: null },
+  { index: 1, user: null },
+  { index: 2, user: null },
+  { index: 3, user: null },
+  { index: 4, user: null },
+  { index: 5, user: null },
+  { index: 6, user: null },
+  { index: 7, user: null },
+  { index: 8, user: null },
+];
+
+let gameComplete = false;
+let playerOneCounter = 0;
+let playerTwoCounter = 0;
+
+let vsComputer = false;
+
 restart.addEventListener("click", () => {
   console.log("restart clicked");
   Array.from(squares).forEach((square, index) => {
@@ -30,15 +35,15 @@ restart.addEventListener("click", () => {
   });
   gameCompleteMessage.innerHTML = "";
   squareMatrix = [
-    { index: 0, taken: false, user: null },
-    { index: 1, taken: false, user: null },
-    { index: 2, taken: false, user: null },
-    { index: 3, taken: false, user: null },
-    { index: 4, taken: false, user: null },
-    { index: 5, taken: false, user: null },
-    { index: 6, taken: false, user: null },
-    { index: 7, taken: false, user: null },
-    { index: 8, taken: false, user: null },
+    { index: 0, user: null },
+    { index: 1, user: null },
+    { index: 2, user: null },
+    { index: 3, user: null },
+    { index: 4, user: null },
+    { index: 5, user: null },
+    { index: 6, user: null },
+    { index: 7, user: null },
+    { index: 8, user: null },
   ];
 });
 
@@ -102,67 +107,85 @@ Array.from(squares).forEach((square, index) => {
     if (firstRow.every((current) => pinkArray.includes(current))) {
       console.log("PINK is tha winna - firstRow");
       gameComplete = true;
+      playerOneCounter++;
     } else if (secondRow.every((current) => pinkArray.includes(current))) {
       console.log("PINK is tha winna - secondRow");
       gameComplete = true;
+      playerOneCounter++;
     } else if (thirdRow.every((current) => pinkArray.includes(current))) {
       console.log("PINK is tha winna - thirdRow");
       gameComplete = true;
+      playerOneCounter++;
     } else if (firstColumn.every((current) => pinkArray.includes(current))) {
       console.log("PINK is tha winna - firstColumn");
       gameComplete = true;
+      playerOneCounter++;
     } else if (secondColumn.every((current) => pinkArray.includes(current))) {
       console.log("PINK is tha winna - secondColumn");
       gameComplete = true;
+      playerOneCounter++;
     } else if (thirdColumn.every((current) => pinkArray.includes(current))) {
       console.log("PINK is tha winna - thirdColumn");
       gameComplete = true;
+      playerOneCounter++;
     } else if (
       diagonalFromLeft.every((current) => pinkArray.includes(current))
     ) {
       console.log("PINK is tha winna - diagonalFromLeft");
       gameComplete = true;
+      playerOneCounter++;
     } else if (
       diagonalFromRight.every((current) => pinkArray.includes(current))
     ) {
       console.log("PINK is tha winna - diagonalFromRight");
       gameComplete = true;
+      playerOneCounter++;
     }
 
     // PlayerTwo - Azure
     if (firstRow.every((current) => azureArray.includes(current))) {
       console.log("Azure is tha winna - firstRow");
       gameComplete = true;
+      playerTwoCounter++;
     } else if (secondRow.every((current) => azureArray.includes(current))) {
       console.log("Azure is tha winna - secondRow");
       gameComplete = true;
+      playerTwoCounter++;
     } else if (thirdRow.every((current) => azureArray.includes(current))) {
       console.log("Azure is tha winna - thirdRow");
       gameComplete = true;
+      playerTwoCounter++;
     } else if (firstColumn.every((current) => azureArray.includes(current))) {
       console.log("Azure is tha winna - firstColumn");
       gameComplete = true;
+      playerTwoCounter++;
     } else if (secondColumn.every((current) => azureArray.includes(current))) {
       console.log("Azure is tha winna - secondColumn");
       gameComplete = true;
+      playerTwoCounter++;
     } else if (thirdColumn.every((current) => azureArray.includes(current))) {
       console.log("Azure is tha winna - thirdColumn");
       gameComplete = true;
+      playerTwoCounter++;
     } else if (
       diagonalFromLeft.every((current) => azureArray.includes(current))
     ) {
       console.log("Azure is tha winna - diagonalFromLeft");
       gameComplete = true;
+      playerTwoCounter++;
     } else if (
       diagonalFromRight.every((current) => azureArray.includes(current))
     ) {
       console.log("Azure is tha winna - diagonalFromRight");
       gameComplete = true;
+      playerTwoCounter++;
     }
 
     // Game over - no more
     if (gameComplete) {
       gameCompleteMessage.innerHTML = "Game Over";
+      playerOneCounterText.innerHTML = playerOneCounter;
+      playerTwoCounterText.innerHTML = playerTwoCounter;
       // square.style = "pointer-events: none";
       // Array.from(squares).forEach((el) => (el.style = "pointer-events: none"));
       console.log("We have a winner - change style");
