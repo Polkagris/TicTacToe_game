@@ -175,7 +175,7 @@ Array.from(squares).forEach((square, index) => {
 
       // reset game values
       // slight bug here with fresh object after game complete, so you can get points after game over
-      gameCompleteMessage.innerHTML = "";
+
       squareMatrix = [
         { index: 0, user: null },
         { index: 1, user: null },
