@@ -14,3 +14,9 @@
   height: 200px;
   background-color: cadetblue;
 }
+
+.inside-square {
+  background-image: url("https://cdn.icon-icons.com/icons2/562/PNG/512/perfect-circle_icon-icons.com_53928.png");
+  background-size: cover;
+  height: 200px;
+}
