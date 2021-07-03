@@ -1,3 +1,10 @@
+/* high to low */
+body,
+html {
+  background-color: #e0e0e0;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
 .gameContainer {
   display: flex;
   flex-direction: column;
@@ -12,12 +19,55 @@
   border: 1px solid black;
   width: 200px;
   height: 200px;
-  background-color: cadetblue;
+  background-color: #abe85c;
+  cursor: pointer;
 }
 
-/* .inside-square {
-  background-image: url("https://cdn.icon-icons.com/icons2/562/PNG/512/perfect-circle_icon-icons.com_53928.png");
-  background-size: cover;
-  height: 200px;
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
- */
+
+.gameCounterContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.counterRow {
+  display: flex;
+  font-size: 32px;
+}
+
+#gameStatus {
+  text-align: center;
+  font-size: 36px;
+}
+
+button {
+  background-color: #ed603d;
+  border: none;
+  color: #fff;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: 200px;
+  border-radius: 3px;
+}
+button:hover {
+  background-color: cornsilk;
+  color: black;
+}
+
+@media (max-width: 768px) {
+  /* For mobile phones: */
+  .square {
+    width: 100px;
+    height: 100px;
+  }
+}

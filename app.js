@@ -28,10 +28,11 @@ let playerTwoCounter = 0;
 restart.addEventListener("click", () => {
   console.log("restart clicked");
   Array.from(squares).forEach((square, index) => {
-    square.style = "background-color: cadetblue";
+    square.style = "background-color: #abe85c";
     console.log("test restart");
   });
 
+  // reset game values
   gameCompleteMessage.innerHTML = "";
   squareMatrix = [
     { index: 0, user: null },
@@ -46,16 +47,11 @@ restart.addEventListener("click", () => {
   ];
 });
 
-// X and O icons
-
 Array.from(squares).forEach((square, index) => {
   square.addEventListener("click", () => {
     console.log("squares :", square, "index: ", index);
     console.log("playerOneTurn: ", playerOneTurn);
     console.log("playerTwoTurn: ", playerTwoTurn);
-    let playerOnePointGiven = false;
-    let playerTwoPointGiven = false;
-    let pointGiven = false;
 
     // Make sure you cannot click already taken square
     if (
@@ -82,20 +78,20 @@ Array.from(squares).forEach((square, index) => {
       }
 
       square.style = "background-color: pink";
-      squareMatrix[index].taken = true;
       squareMatrix[index].user = "playerOne";
     } else if (playerTwoTurn == true) {
       // make sure you cant change colors
       if (square.getAttribute("style") == "background-color: pink;") {
         return;
       }
+
       square.style = "background-color: azure";
-      squareMatrix[index].taken = true;
       squareMatrix[index].user = "playerTwo";
     }
 
     console.log("squareMatrix[index].user", squareMatrix[index].user);
 
+    // change turns
     playerOneTurn = !playerOneTurn;
     playerTwoTurn = !playerTwoTurn;
 
@@ -116,6 +112,7 @@ Array.from(squares).forEach((square, index) => {
     const diagonalFromLeft = [0, 4, 8];
     const diagonalFromRight = [2, 4, 6];
 
+    // create new array to compare with winner combo arrays
     squareMatrix.forEach((square) => {
       if (square.user == "playerOne") {
         pinkArray.push(square.index);
@@ -128,59 +125,46 @@ Array.from(squares).forEach((square, index) => {
     console.log("pink array: ", pinkArray);
     console.log("azure array: ", azureArray);
 
-    // Check for winner
-    // PlayerOne - Pink
+    // check for winner
+    // playerOne - Pink
     if (
-      (firstRow.every((current) => pinkArray.includes(current)) ||
-        secondRow.every((current) => pinkArray.includes(current)) ||
-        thirdRow.every((current) => pinkArray.includes(current)) ||
-        firstColumn.every((current) => pinkArray.includes(current)) ||
-        secondColumn.every((current) => pinkArray.includes(current)) ||
-        thirdColumn.every((current) => pinkArray.includes(current)) ||
-        diagonalFromLeft.every((current) => pinkArray.includes(current)) ||
-        diagonalFromRight.every((current) => pinkArray.includes(current))) &&
-      !playerOnePointGiven &&
-      !pointGiven &&
-      !gameComplete
+      firstRow.every((current) => pinkArray.includes(current)) ||
+      secondRow.every((current) => pinkArray.includes(current)) ||
+      thirdRow.every((current) => pinkArray.includes(current)) ||
+      firstColumn.every((current) => pinkArray.includes(current)) ||
+      secondColumn.every((current) => pinkArray.includes(current)) ||
+      thirdColumn.every((current) => pinkArray.includes(current)) ||
+      diagonalFromLeft.every((current) => pinkArray.includes(current)) ||
+      diagonalFromRight.every((current) => pinkArray.includes(current))
     ) {
       console.log("PINK is tha winna");
 
       // make sure only one point is given per round
       console.log("pink lenght and no point given: ", pinkArray.length);
       playerOneCounter++;
-      playerOnePointGiven = true;
+
       gameComplete = true;
-      console.log("pink point given: ", pointGiven);
-      pointGiven = true;
     }
 
-    // PlayerTwo - Azure
+    // playerTwo - Azure
     if (
-      (firstRow.every((current) => azureArray.includes(current)) ||
-        secondRow.every((current) => azureArray.includes(current)) ||
-        thirdRow.every((current) => azureArray.includes(current)) ||
-        firstColumn.every((current) => azureArray.includes(current)) ||
-        secondColumn.every((current) => azureArray.includes(current)) ||
-        thirdColumn.every((current) => azureArray.includes(current)) ||
-        diagonalFromLeft.every((current) => azureArray.includes(current)) ||
-        diagonalFromRight.every((current) => azureArray.includes(current))) &&
-      !playerOnePointGiven &&
-      !pointGiven &&
-      !gameComplete
+      firstRow.every((current) => azureArray.includes(current)) ||
+      secondRow.every((current) => azureArray.includes(current)) ||
+      thirdRow.every((current) => azureArray.includes(current)) ||
+      firstColumn.every((current) => azureArray.includes(current)) ||
+      secondColumn.every((current) => azureArray.includes(current)) ||
+      thirdColumn.every((current) => azureArray.includes(current)) ||
+      diagonalFromLeft.every((current) => azureArray.includes(current)) ||
+      diagonalFromRight.every((current) => azureArray.includes(current))
     ) {
       console.log("Azure is tha winna");
-      // make sure only one point is given per round
-
       console.log("azure lenght and no point given: ", azureArray.length);
-
       playerTwoCounter++;
-      playerTwoPointGiven = true;
+
       gameComplete = true;
-      console.log("azure point given: ", pointGiven);
-      pointGiven = true;
     }
 
-    // Game over - no more
+    // game over
     if (gameComplete) {
       gameCompleteMessage.innerHTML = "Game Over";
       playerOneCounterText.innerHTML = playerOneCounter;
@@ -188,8 +172,9 @@ Array.from(squares).forEach((square, index) => {
 
       console.log("We have a winner - change style");
       gameComplete = false;
-      pointGiven = false;
 
+      // reset game values
+      // slight bug here with fresh object after game complete, so you can get points after game over
       gameCompleteMessage.innerHTML = "";
       squareMatrix = [
         { index: 0, user: null },
